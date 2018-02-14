@@ -1,4 +1,6 @@
 <h2>{{ getTitle() }}</h2>
-<p>
-  courses works!
-</p>
+<ul>
+  <li *ngFor="let course of courses">
+    {{ course }}
+  </li>
+</ul>
