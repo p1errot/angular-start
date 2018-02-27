@@ -8,12 +8,21 @@ import { AuthorsService } from '../authors.service';
 })
 export class AuthorsComponent implements OnInit {
   authors;
+  texto;
 
   constructor(authorsService: AuthorsService) {
     this.authors = authorsService.getAuthors();
   }
 
   ngOnInit() {
+  }
+
+  onLoad($event) {
+    console.log("Load button was clicked");
+  }
+
+  onEnterPress() {
+    console.log("Enter key was pressed: ", this.texto);
   }
 
 }
