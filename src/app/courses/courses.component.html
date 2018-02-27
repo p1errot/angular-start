@@ -4,3 +4,13 @@
     {{ course }}
   </li>
 </ul>
+
+<div class="course-details">
+  <!-- Multiple pipes can be added. e.g.: | uppercase | lowercase ... -->
+  <!-- Can check all pipes available in angular.io and search for pipes -->
+  <p>{{ course.title | uppercase }}</p>
+  <p>{{ course.students | number }}</p>
+  <p>{{ course.rating | number: '1.2-2' }}</p> <!-- This means that we will have a minimum of of 2 digits and maximum of 2 digits after decimal  -->
+  <p>{{ course.price | currency:'COP':true:'3.2-2' }}</p>
+  <p>{{ course.releaseDate | date:'shortDate' }}</p>
+</div>
