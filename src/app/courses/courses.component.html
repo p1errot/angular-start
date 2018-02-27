@@ -1,7 +1,7 @@
 <h2>{{ getTitle() }}</h2>
-<ul>
-  <li *ngFor="let course of courses">
-    {{ course }}
+<ul class="list-group" style="max-width:250px;">
+  <li *ngFor="let course of courses" class="list-group-item">
+    {{ course }} <span class="badge"><app-favorite></app-favorite></span>
   </li>
 </ul>
 

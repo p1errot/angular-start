@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
-import { CoursesService } from './courses.service';
 import { AuthorsComponent } from './authors/authors.component';
+import { FavoriteComponent } from './favorite/favorite.component';
+import { CoursesService } from './courses.service';
 import { AuthorsService } from './authors.service';
 import { SummaryPipe } from './summary.pipe';
 
@@ -14,7 +15,8 @@ import { SummaryPipe } from './summary.pipe';
     AppComponent,
     CoursesComponent,
     AuthorsComponent,
-    SummaryPipe
+    SummaryPipe,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
