@@ -6,7 +6,20 @@ export class CoursesService {
   constructor() { }
 
   getCourses() {
-    return ["course1", "course2", "course3"];
+    return [
+      {
+        title: "course1",
+        isFavorite: false
+      }, 
+      {
+        title: "course2",
+        isFavorite: false
+      }, 
+      {
+        title: "course3",
+        isFavorite: true
+      }
+    ];
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../courses.service';
+import { FavoriteChangeEventArgs } from '../favorite/favorite.component';
 
 @Component({
   selector: 'app-courses',
@@ -28,6 +29,10 @@ export class CoursesComponent implements OnInit {
 
   getTitle() {
     return this.title;
+  }
+
+  onFavoriteChange(eventArgs: FavoriteChangeEventArgs) {
+    console.log('Favorite Change: ', eventArgs);
   }
 
 }
