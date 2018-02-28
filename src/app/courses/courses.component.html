@@ -1,7 +1,11 @@
 <h2>{{ getTitle() }}</h2>
 <ul class="list-group" style="max-width:250px;">
   <li *ngFor="let course of courses" class="list-group-item">
-    {{ course }} <span class="badge"><app-favorite></app-favorite></span>
+    {{ course }}
+    <span class="badge">
+      <!-- An alias for isFavorite can be setted in html as in the example below -->
+      <app-favorite [is-favorite]=true></app-favorite>
+    </span>
   </li>
 </ul>
 
