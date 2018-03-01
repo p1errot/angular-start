@@ -1,0 +1,10 @@
+.glyphicon-heart {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 32px;
+    margin-bottom: 20px;
+
+    &.liked-heart {
+        color: deeppink;
+    }
+}
