@@ -1,13 +1,24 @@
 <h2>{{ getTitle() }}</h2>
-<ul class="list-group" style="max-width:250px;">
-  <li *ngFor="let course of courses" class="list-group-item">
-    {{ course.title }}
-    <span class="badge">
-      <!-- An alias for isFavorite can be setted in html as in the example below -->
-      <app-favorite [is-favorite]="course.isFavorite" (change)="onFavoriteChange($event)"></app-favorite>
-    </span>
-  </li>
-</ul>
+
+<div *ngIf="courses.length > 0; then coursesList else noCourses"></div>
+
+<ng-template #coursesList>
+  <ul class="list-group" style="max-width:250px;">
+    <li *ngFor="let course of courses; trackBy: trackCourse" class="list-group-item">
+      {{ course.title }}
+      <span class="badge">
+        <!-- An alias for isFavorite can be setted in html as in the example below -->
+        <app-favorite [is-favorite]="course.isFavorite" (change)="onFavoriteChange($event)"></app-favorite>
+      </span>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #noCourses>
+  No courses yet
+</ng-template>
+
+<button class="btn btn-primary" (click)="addCourse()">Add course</button><br /><br />
 
 <div class="course-details">
   <!-- Multiple pipes can be added. e.g.: | uppercase | lowercase ... -->

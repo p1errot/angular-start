@@ -35,4 +35,15 @@ export class CoursesComponent implements OnInit {
     console.log('Favorite Change: ', eventArgs);
   }
 
+  addCourse() {
+    let currentLength: number =  this.courses.length,
+      newNumberCourse: number = currentLength + 1;
+
+    this.courses.push({ title: "course" + newNumberCourse, isFavorite: false });
+  }
+
+  trackCourse(index, course) {
+    return course ? course.id : undefined;
+  }
+
 }
