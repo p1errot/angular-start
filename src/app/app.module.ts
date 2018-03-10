@@ -11,6 +11,7 @@ import { AuthorsService } from './authors.service';
 import { SummaryPipe } from './summary.pipe';
 import { TitleCasePipe } from './title-case.pipe';
 import { LikesComponent } from './likes/likes.component';
+import { InputFormatDirective } from './input-format.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LikesComponent } from './likes/likes.component';
     SummaryPipe,
     FavoriteComponent,
     TitleCasePipe,
-    LikesComponent
+    LikesComponent,
+    InputFormatDirective
   ],
   imports: [
     BrowserModule,
