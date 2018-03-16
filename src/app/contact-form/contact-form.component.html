@@ -33,5 +33,29 @@
       class="form-control"></textarea>
   </div>
 
+  <div class="checkbox">
+    <label>
+        <input type="checkbox" ngModel name="isSubscribed"> Subscribe to mailing list
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="contactMethod">Contact Method</label>
+    <select ngModel name="contactMethod" id="contactMethod" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let method of contactMethods" [value]="method.id">{{ method.name }}</option>
+    </select>
+  </div>
+
+  <div *ngFor="let method of contactMethods" class="radio">
+    <label>
+      <input ngModel type="radio" name="contactMethod2" [value]="method.id"> {{ method.name }}
+    </label>
+  </div>
+
+  <p>
+    {{ form.value | json }}
+  </p>
+
   <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
 </form>
