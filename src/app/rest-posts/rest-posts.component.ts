@@ -11,7 +11,10 @@ export class RestPostsComponent implements OnInit {
   posts: any[];
 
   constructor(private http: Http) {
-    http.get(this.url)
+  }
+
+  ngOnInit() {
+    this.http.get(this.url)
       .subscribe(response => {
         this.posts = response.json();
       })
@@ -50,9 +53,6 @@ export class RestPostsComponent implements OnInit {
 
       this.posts.splice(index, 1);
     })
-  }
-
-  ngOnInit() {
   }
 
 }
