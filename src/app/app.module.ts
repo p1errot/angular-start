@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -14,6 +15,7 @@ import { LikesComponent } from './likes/likes.component';
 import { InputFormatDirective } from './input-format.directive';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { RestPostsComponent } from './rest-posts/rest-posts.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,14 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     LikesComponent,
     InputFormatDirective,
     ContactFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    RestPostsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     CoursesService,
