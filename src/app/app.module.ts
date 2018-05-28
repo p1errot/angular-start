@@ -16,6 +16,7 @@ import { InputFormatDirective } from './input-format.directive';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { RestPostsComponent } from './rest-posts/rest-posts.component';
+import { RestService } from './shared/rest.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RestPostsComponent } from './rest-posts/rest-posts.component';
     HttpModule
   ],
   providers: [
+    RestService,
     CoursesService,
     AuthorsService
   ],
