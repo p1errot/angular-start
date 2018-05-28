@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+
+import { RestService } from '../shared/rest.service';
 
 @Component({
   selector: 'app-rest-posts',
@@ -7,14 +8,13 @@ import { Http } from '@angular/http';
   styleUrls: ['./rest-posts.component.scss']
 })
 export class RestPostsComponent implements OnInit {
-  private url: string = 'http://jsonplaceholder.typicode.com/posts';
   posts: any[];
 
-  constructor(private http: Http) {
+  constructor(private service: RestService) {
   }
 
   ngOnInit() {
-    this.http.get(this.url)
+    this.service.getPosts()
       .subscribe(response => {
         this.posts = response.json();
       })
@@ -25,7 +25,7 @@ export class RestPostsComponent implements OnInit {
 
     input.value = '';
 
-    this.http.post(this.url, JSON.stringify(post))
+    this.service.createPost(post)
       .subscribe(response => {
         post['id'] = response.json().id;
         this.posts.splice(0, 0, post);
@@ -33,21 +33,14 @@ export class RestPostsComponent implements OnInit {
   }
 
   updatePost(post) {
-    // Only updates few properties. Check if API supports this method before use it.
-    this.http.patch(this.url + '/' + post.id, JSON.stringify({ isRead: true }))
+    this.service.updatePost(post)
       .subscribe(response => {
         console.log(response.json());
       });
-
-    // Updates many properties. 
-    // this.http.put(this.url, JSON.stringify(post))
-    //   .subscribe(response => {
-    //     console.log(response.json());
-    //   });
   }
 
   deletePost(post) {
-    this.http.delete(this.url + '/' + post.id)
+    this.service.deletePost(post.id)
     .subscribe(response => {
       let index = this.posts.indexOf(post);
 
