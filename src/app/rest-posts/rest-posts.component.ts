@@ -29,6 +29,20 @@ export class RestPostsComponent implements OnInit {
       });
   }
 
+  updatePost(post) {
+    // Only updates few properties. Check if API supports this method before use it.
+    this.http.patch(this.url + '/' + post.id, JSON.stringify({ isRead: true }))
+      .subscribe(response => {
+        console.log(response.json());
+      });
+
+    // Updates many properties. 
+    // this.http.put(this.url, JSON.stringify(post))
+    //   .subscribe(response => {
+    //     console.log(response.json());
+    //   });
+  }
+
   ngOnInit() {
   }
 
