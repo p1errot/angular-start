@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { AppError } from '../common/app-error';
 import { NotFoundError } from '../common/not-found-error';
@@ -19,12 +20,12 @@ export class RestService {
 
   createPost(postData) {
     return this.http.post(this.url, JSON.stringify(postData))
-    .catch((error: Response) => {
-      if (error.status === 400) {
-        return Observable.throw(new BadInput(error.json()));
-      } else {
-        return Observable.throw(new AppError(error.json()));
-      }
+      .catch((error: Response) => {
+        if (error.status === 400) {
+          return Observable.throw(new BadInput(error.json()));
+        } else {
+          return Observable.throw(new AppError(error.json()));
+        }
     });
   }
 
@@ -40,9 +41,10 @@ export class RestService {
     return this.http.delete(this.url + '/' + postId)
       .catch((error: Response) => {
         if (error.status === 404) {
-          return Observable.throw(new NotFoundError());
+          return Observable.throw(new NotFoundError(error));
+        } else {
+          return Observable.throw(new AppError(error));
         }
-        return Observable.throw(new AppError(error));
       })
   }
 
