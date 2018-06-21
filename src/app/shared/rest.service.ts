@@ -15,23 +15,19 @@ export class RestService {
   constructor(private http: Http) { }
 
   getPosts() {
-    return this.http.get(this.url);
+    return this.http.get(this.url)
+      .catch(this.handleError);
   }
 
   createPost(postData) {
     return this.http.post(this.url, JSON.stringify(postData))
-      .catch((error: Response) => {
-        if (error.status === 400) {
-          return Observable.throw(new BadInput(error.json()));
-        } else {
-          return Observable.throw(new AppError(error.json()));
-        }
-    });
+      .catch(this.handleError);
   }
 
   updatePost(postData) {
     // Only updates few properties. Check if API supports this method before use it.
-    return this.http.patch(this.url + '/' + postData.id, JSON.stringify({ isRead: true }));
+    return this.http.patch(this.url + '/' + postData.id, JSON.stringify({ isRead: true }))
+      .catch(this.handleError);
 
     // Updates many properties. 
     // return this.http.put(this.url, JSON.stringify(post));
@@ -39,13 +35,18 @@ export class RestService {
 
   deletePost(postId) {
     return this.http.delete(this.url + '/' + postId)
-      .catch((error: Response) => {
-        if (error.status === 404) {
-          return Observable.throw(new NotFoundError(error));
-        } else {
-          return Observable.throw(new AppError(error));
-        }
-      })
+      .catch(this.handleError)
   }
 
+  private handleError(error: Response) {
+    if (error.status === 400) {
+      return Observable.throw(new BadInput(error.json()));
+    }
+
+    if (error.status === 404) {
+      return Observable.throw(new NotFoundError(error));
+    }
+    
+    return Observable.throw(new AppError(error));
+  }
 }

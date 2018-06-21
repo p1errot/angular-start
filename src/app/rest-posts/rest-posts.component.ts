@@ -21,10 +21,6 @@ export class RestPostsComponent implements OnInit {
       .subscribe(
         response => {
           this.posts = response.json();
-        },
-        error => {
-          alert('An unexpected error occurred.');
-          console.log(error);
         });
   }
 
@@ -40,11 +36,10 @@ export class RestPostsComponent implements OnInit {
           this.posts.splice(0, 0, post);
         },
         (error: AppError) => {
-          if (error instanceof BadInput) {
+          if (error instanceof BadInput)
             console.log('Error filling the form', error.originalError);
-          } else {
-            console.log('An error occurrend creating the post.', error);
-          }
+          else
+            throw error;
         });
   }
 
@@ -53,9 +48,6 @@ export class RestPostsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response.json());
-        },
-        error => {
-          console.log('An error occurrend updating the post.', error);
         });
   }
 
@@ -68,11 +60,10 @@ export class RestPostsComponent implements OnInit {
           this.posts.splice(index, 1);
         },
         (error: AppError) => {
-          if (error instanceof NotFoundError) {
+          if (error instanceof NotFoundError)
             alert('This post has already been deleted.');
-          } else {
-            console.log('An error occurrend deleting the post.', error);
-          }
+          else
+            throw error;
         });
   }
 }
