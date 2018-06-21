@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RestService } from '../shared/rest.service';
+import { AppError } from '../common/app-error';
+import { NotFoundError } from '../common/not-found-error';
+import { BadInput } from '../common/bad-input';
 
 @Component({
   selector: 'app-rest-posts',
@@ -15,9 +18,14 @@ export class RestPostsComponent implements OnInit {
 
   ngOnInit() {
     this.service.getPosts()
-      .subscribe(response => {
-        this.posts = response.json();
-      })
+      .subscribe(
+        response => {
+          this.posts = response.json();
+        },
+        error => {
+          alert('An unexpected error occurred.');
+          console.log(error);
+        });
   }
 
   createPost(input: HTMLInputElement) {
@@ -26,26 +34,45 @@ export class RestPostsComponent implements OnInit {
     input.value = '';
 
     this.service.createPost(post)
-      .subscribe(response => {
-        post['id'] = response.json().id;
-        this.posts.splice(0, 0, post);
-      });
+      .subscribe(
+        response => {
+          post['id'] = response.json().id;
+          this.posts.splice(0, 0, post);
+        },
+        (error: AppError) => {
+          if (error instanceof BadInput) {
+            console.log('Error filling the form', error.originalError);
+          } else {
+            console.log('An error occurrend creating the post.', error);
+          }
+        });
   }
 
   updatePost(post) {
     this.service.updatePost(post)
-      .subscribe(response => {
-        console.log(response.json());
-      });
+      .subscribe(
+        response => {
+          console.log(response.json());
+        },
+        error => {
+          console.log('An error occurrend updating the post.', error);
+        });
   }
 
   deletePost(post) {
     this.service.deletePost(post.id)
-    .subscribe(response => {
-      let index = this.posts.indexOf(post);
+      .subscribe(
+        response => {
+          let index = this.posts.indexOf(post);
 
-      this.posts.splice(index, 1);
-    })
+          this.posts.splice(index, 1);
+        },
+        (error: AppError) => {
+          if (error instanceof NotFoundError) {
+            alert('This post has already been deleted.');
+          } else {
+            console.log('An error occurrend deleting the post.', error);
+          }
+        });
   }
-
 }

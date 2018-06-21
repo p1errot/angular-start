@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+
+import { AppError } from '../common/app-error';
+import { NotFoundError } from '../common/not-found-error';
+import { BadInput } from '../common/bad-input';
 
 @Injectable()
 export class RestService {
@@ -12,7 +18,14 @@ export class RestService {
   }
 
   createPost(postData) {
-    return this.http.post(this.url, JSON.stringify(postData));
+    return this.http.post(this.url, JSON.stringify(postData))
+    .catch((error: Response) => {
+      if (error.status === 400) {
+        return Observable.throw(new BadInput(error.json()));
+      } else {
+        return Observable.throw(new AppError(error.json()));
+      }
+    });
   }
 
   updatePost(postData) {
@@ -25,6 +38,12 @@ export class RestService {
 
   deletePost(postId) {
     return this.http.delete(this.url + '/' + postId)
+      .catch((error: Response) => {
+        if (error.status === 404) {
+          return Observable.throw(new NotFoundError());
+        }
+        return Observable.throw(new AppError(error));
+      })
   }
 
 }
