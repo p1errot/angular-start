@@ -20,7 +20,14 @@ export class LoginComponent {
         if (result)
           this.router.navigate(['/']);
         else  
-          this.invalidLogin = true; 
+          this.invalidLogin = true;
+          this.hideInvalidLogin();
       });
+  }
+
+  hideInvalidLogin() {
+    setTimeout(() => {
+      this.invalidLogin = false;
+    }, 5000);
   }
 }
